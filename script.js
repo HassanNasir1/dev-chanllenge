@@ -16,20 +16,20 @@ async function fetchData(url) {
   }
   
   async function fetchAndDisplayChatMessages(chatId, containerId) {
-    const messages = await fetchData("../data/messages.json");
+    const messages = await fetchData("data/messages.json");
     const filteredMessages = messages.filter((message) => message.chatid === chatId);
     const htmlContent = filteredMessages.map((message) => `<div class="message">${message.message}</div>`).join("");
     displayHTML(containerId, htmlContent);
   }
   
   async function fetchAndDisplayUserDetails(userId, containerId) {
-    const users = await fetchData("../data/users.json");
+    const users = await fetchData("data/users.json");
     const userWithMaskedPassword = { ...users.find((user) => user.id === userId), password: "*********" };
     displayJSON(containerId, userWithMaskedPassword);
   }
   
   async function fetchAndDisplayMessage(messageId, containerId) {
-    const messages = await fetchData("../data/messages.json");
+    const messages = await fetchData("data/messages.json");
     const message = messages.find((msg) => msg.id === messageId);
     const htmlContent = `<div class="message">${message.message}</div>`;
     displayHTML(containerId, htmlContent);
