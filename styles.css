@@ -1,0 +1,49 @@
+body {
+  font-family: "Arial", sans-serif;
+  margin: 20px;
+  background-color: #f5f5f5;
+}
+
+section {
+  background-color: #fff;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  color: #333;
+}
+
+.message-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  background-color: #e0f7fa;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+}
+
+.json-container {
+  font-family: "Courier New", monospace;
+  white-space: pre-wrap;
+  background-color: #fafafa;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px 0;
+  overflow: auto;
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+.timestamp {
+  color: #757575;
+  font-size: 12px;
+}
