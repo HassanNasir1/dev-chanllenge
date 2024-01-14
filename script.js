@@ -1,5 +1,8 @@
 // Function to sanitize HTML content using DOMPurify
 function sanitizeHTML(content) {
+  console.log("context", content)
+  const dom = DOMPurify.sanitize(content)
+  console.log("dom", dom)
   return DOMPurify.sanitize(content);
 }
 
