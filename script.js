@@ -5,14 +5,27 @@ function sanitizeHTML(content) {
 
 // Function to fetch data from a given URL
 async function fetchData(url) {
-  const response = await fetch(url);
-  return await response.json();
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Fetch error:', error);
+    // Handle the error gracefully
+    return null;
+  }
 }
 
 // Function to display HTML content in a container
 function displayHTML(containerId, content) {
   const container = document.getElementById(containerId);
-  container.innerHTML = sanitizeHTML(content);
+  const div = document.createElement('div');
+  div.innerHTML = sanitizeHTML(content);
+  container.appendChild(div);
 }
 
 // Function to display JSON content in a container
@@ -22,12 +35,18 @@ function displayJSON(containerId, data) {
   const jsonHTML = `<div class="json-container"><pre>${sanitizeHTML(
     jsonContent
   )}</pre></div>`;
-  container.innerHTML = jsonHTML;
+  container.appendChild(document.createRange().createContextualFragment(jsonHTML));
 }
 
 // Function to fetch and display chat messages
 async function fetchAndDisplayChatMessages(chatId, containerId) {
   const messages = await fetchData("data/messages.json");
+
+  if (!messages) {
+    console.error('Failed to fetch messages');
+    return;
+  }
+
   const filteredMessages = messages.filter(
     (message) => message.chatid === chatId
   );
@@ -42,6 +61,12 @@ async function fetchAndDisplayChatMessages(chatId, containerId) {
 // Function to fetch and display user details
 async function fetchAndDisplayUserDetails(userId, containerId) {
   const users = await fetchData("data/users.json");
+
+  if (!users) {
+    console.error('Failed to fetch user details');
+    return;
+  }
+
   const userWithMaskedPassword = {
     ...users.find((user) => user.id === userId),
     password: "*********",
@@ -52,6 +77,12 @@ async function fetchAndDisplayUserDetails(userId, containerId) {
 // Function to fetch and display a specific message
 async function fetchAndDisplayMessage(messageId, containerId) {
   const messages = await fetchData("data/messages.json");
+
+  if (!messages) {
+    console.error('Failed to fetch message details');
+    return;
+  }
+
   const message = messages.find((msg) => msg.id === messageId);
   const htmlContent = `<div class="message">${sanitizeHTML(
     message.message
