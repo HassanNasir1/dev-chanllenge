@@ -1,8 +1,5 @@
 // Function to sanitize HTML content using DOMPurify
 function sanitizeHTML(content) {
-  console.log("context", content)
-  const dom = DOMPurify.sanitize(content)
-  console.log("dom", dom)
   return DOMPurify.sanitize(content);
 }
 
@@ -17,7 +14,7 @@ async function fetchData(url) {
 
     return await response.json();
   } catch (error) {
-    console.error('Fetch error:', error);
+    console.error("Fetch error:", error);
     // Handle the error gracefully
     return null;
   }
@@ -26,7 +23,7 @@ async function fetchData(url) {
 // Function to display HTML content in a container
 function displayHTML(containerId, content) {
   const container = document.getElementById(containerId);
-  const div = document.createElement('div');
+  const div = document.createElement("div");
   div.innerHTML = sanitizeHTML(content);
   container.appendChild(div);
 }
@@ -38,7 +35,9 @@ function displayJSON(containerId, data) {
   const jsonHTML = `<div class="json-container"><pre>${sanitizeHTML(
     jsonContent
   )}</pre></div>`;
-  container.appendChild(document.createRange().createContextualFragment(jsonHTML));
+  container.appendChild(
+    document.createRange().createContextualFragment(jsonHTML)
+  );
 }
 
 // Function to fetch and display chat messages
@@ -46,7 +45,7 @@ async function fetchAndDisplayChatMessages(chatId, containerId) {
   const messages = await fetchData("data/messages.json");
 
   if (!messages) {
-    console.error('Failed to fetch messages');
+    console.error("Failed to fetch messages");
     return;
   }
 
@@ -66,7 +65,7 @@ async function fetchAndDisplayUserDetails(userId, containerId) {
   const users = await fetchData("data/users.json");
 
   if (!users) {
-    console.error('Failed to fetch user details');
+    console.error("Failed to fetch user details");
     return;
   }
 
@@ -82,7 +81,7 @@ async function fetchAndDisplayMessage(messageId, containerId) {
   const messages = await fetchData("data/messages.json");
 
   if (!messages) {
-    console.error('Failed to fetch message details');
+    console.error("Failed to fetch message details");
     return;
   }
 
